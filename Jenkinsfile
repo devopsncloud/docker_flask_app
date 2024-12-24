@@ -11,7 +11,7 @@ pipeline {
 	      steps {
 	                       
 	      	sh '''
-		sudo yum install python3-pip -y
+		#sudo yum install python3-pip -y
 		pip install -r requirements.txt
 
 		'''
