@@ -24,15 +24,15 @@ pipeline {
 		  sh "pytest"
 		}
 	     }
-	  #stage('DOCKER_LOGIN'){
-	  #	steps{
-	#	 withCredentials([usernamePassword(credentialsId: 'docker-creds', 
-	#	 passwordVariable: 'dkr-password', usernameVariable: 'dkr-username')]) {
-    	 #        sh 'echo ${dkr-password} | docker login -u ${dkr-username} --password-stdin'
-	#		}
-	#	 echo 'Docker login successful'
-	#	}
-	 #   }
+	//   #stage('DOCKER_LOGIN'){
+	//   #	steps{
+	// #	 withCredentials([usernamePassword(credentialsId: 'docker-creds', 
+	// #	 passwordVariable: 'dkr-password', usernameVariable: 'dkr-username')]) {
+    // 	 #        sh 'echo ${dkr-password} | docker login -u ${dkr-username} --password-stdin'
+	// #		}
+	// #	 echo 'Docker login successful'
+	// #	}
+	//  #   }
 
 
 	 stage('DOCKER_LOGIN') {
