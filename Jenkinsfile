@@ -34,15 +34,25 @@ pipeline {
 	// 	}
 	//     }
 
+		// stage('Login to docker hub') {
+        //     steps {
+        //         withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'dockerHubUser', passwordVariable: 'dockerHubPwd')]) {
+        //         sh "echo ${dockerHubPwd} | docker login -u ${dockerHubUser} --password-stdin"
+		// 		}
+        //         echo 'Login successfully'
+        //     }
+        // }
+
 		stage('Login to docker hub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'dockerHubUser', passwordVariable: 'dockerHubPwd')]) {
-                sh "echo ${dockerHubPwd} | docker login -u ${dockerHubUser} --password-stdin"
-				}
+    			sh '''
+      			echo "$dockerHubPwd" | docker login -u "$dockerHubUser" --password-stdin
+   				 '''
+			}
                 echo 'Login successfully'
             }
         }
-
 
 
 	 stage('DOCKER_IMAGE_BUILD'){
