@@ -37,12 +37,10 @@ pipeline {
 
 	 stage('DOCKER_LOGIN') {
     steps {
-        withCredentials([usernamePassword(credentialsId: 'docker-creds',
-                                          usernameVariable: 'dkr-username',
-                                          passwordVariable: 'dkr-password')]) {
+        withCredentials([usernamePassword(credentialsId: 'docker-creds', passwordVariable: 'DOCKER_PWD', usernameVariable: 'DOCKER_USER')]) { 
             echo "Docker Username: ${dkr-username}" // Debugging line to check username
             // Attempt login to Docker
-            sh "echo ${env.dkr-password} | docker login -u ${env.dkr-username} --password-stdin"
+            sh "echo ${DOCKER_PWD} | docker login -u ${DOCKER_USER} --password-stdin"
         }
         echo "Docker login successful"
     }
