@@ -10,8 +10,7 @@ pipeline {
 	  stage('SETUP') {
 	      steps {
 	                       
-	      	sh 
-		'''
+	      	sh '''
 		sudo yum install python3-pip -y
 		pip install -r requirements.txt
 
