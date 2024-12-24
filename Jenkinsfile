@@ -24,15 +24,30 @@ pipeline {
 		  sh "pytest"
 		}
 	     }
-	  stage('DOCKER_LOGIN'){
-	  	steps{
-		 withCredentials([usernamePassword(credentialsId: 'docker-creds', 
-		 passwordVariable: 'dkr-password', usernameVariable: 'dkr-username')]) {
-    	         sh 'echo ${dkr-password} | docker login -u ${dkr-username} --password-stdin'
-			}
-		 echo 'Docker login successful'
-		}
-	    }   
+	  #stage('DOCKER_LOGIN'){
+	  #	steps{
+	#	 withCredentials([usernamePassword(credentialsId: 'docker-creds', 
+	#	 passwordVariable: 'dkr-password', usernameVariable: 'dkr-username')]) {
+    	 #        sh 'echo ${dkr-password} | docker login -u ${dkr-username} --password-stdin'
+	#		}
+	#	 echo 'Docker login successful'
+	#	}
+	 #   }
+
+
+	 stage('DOCKER_LOGIN') {
+    steps {
+        withCredentials([usernamePassword(credentialsId: 'docker-creds',
+                                          usernameVariable: 'dkr-username',
+                                          passwordVariable: 'dkr-password')]) {
+            echo "Docker Username: ${dkr-username}" // Debugging line to check username
+            // Attempt login to Docker
+            sh "echo ${dkr-password} | docker login -u ${dkr-username} --password-stdin"
+        }
+        echo "Docker login successful"
+    }
+}
+
 	 stage('DOCKER_IMAGE_BUILD'){
 	 	steps{
 		   sh " docker build -t ${IMAGE_TAG} ."
