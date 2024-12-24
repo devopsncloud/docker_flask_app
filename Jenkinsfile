@@ -24,15 +24,25 @@ pipeline {
 		  sh "pytest"
 		}
 	     }
-	  stage('DOCKER_LOGIN') {
-	  	steps {
-		 withCredentials([usernamePassword(credentialsId: 'docker-creds', 
-		 passwordVariable: 'dockerHubPwd', usernameVariable: 'dockerHubUser')]) {
-    	         sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPwd}"
-			}
-		 echo 'Docker login successful'
-		}
-	    }
+	//   stage('DOCKER_LOGIN') {
+	//   	steps {
+	// 	 withCredentials([usernamePassword(credentialsId: 'docker-creds', 
+	// 	 passwordVariable: 'dockerHubPwd', usernameVariable: 'dockerHubUser')]) {
+    // 	         sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPwd}"
+	// 		}
+	// 	 echo 'Docker login successful'
+	// 	}
+	//     }
+
+		stage('Login to docker hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'dockerHubUser', passwordVariable: 'dockerHubPwd')]) {
+                sh "echo ${dockerHubPwd} | docker login -u ${dockerHubUser} --password-stdin"
+				}
+                echo 'Login successfully'
+            }
+        }
+
 
 
 	 stage('DOCKER_IMAGE_BUILD'){
