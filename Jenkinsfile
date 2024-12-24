@@ -44,7 +44,7 @@ pipeline {
                    echo " docker push image successful"
                 }
         }
-
+}
 	
 
 
