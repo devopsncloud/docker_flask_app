@@ -42,7 +42,7 @@ pipeline {
                                           passwordVariable: 'dkr-password')]) {
             echo "Docker Username: ${dkr-username}" // Debugging line to check username
             // Attempt login to Docker
-            sh "echo ${dkr-password} | docker login -u ${dkr-username} --password-stdin"
+            sh "echo ${env.dkr-password} | docker login -u ${env.dkr-username} --password-stdin"
         }
         echo "Docker login successful"
     }
